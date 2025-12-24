@@ -71,22 +71,22 @@ export default function PaymentHistoryModal({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-[2rem] max-w-4xl w-full relative animate-slide-up shadow-modal border border-slate-200 max-h-[90vh] overflow-hidden flex flex-col"
+        className="bg-white rounded-2xl md:rounded-[2rem] max-w-4xl w-full relative animate-slide-up shadow-modal border border-slate-200 max-h-[90vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-slate-200 px-8 py-6 z-10">
+        <div className="sticky top-0 bg-white border-b border-slate-200 px-5 md:px-8 py-5 md:py-6 z-10">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-3xl text-slate-900 font-bold tracking-tight">
+              <h2 className="text-2xl md:text-3xl text-slate-900 font-bold tracking-tight">
                 Purchase History
               </h2>
-              <p className="text-slate-500 mt-1">
+              <p className="text-slate-500 mt-1 text-sm md:text-base">
                 View all your past transactions
               </p>
             </div>
             <button
-              className="bg-slate-100 border-0 text-slate-600 cursor-pointer w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 hover:bg-slate-200 hover:text-slate-900 hover:rotate-90"
+              className="bg-slate-100 border-0 text-slate-600 cursor-pointer w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full transition-all duration-200 hover:bg-slate-200 hover:text-slate-900 hover:rotate-90 flex-shrink-0"
               onClick={onClose}
             >
               <span className="text-2xl leading-none">×</span>
@@ -95,7 +95,7 @@ export default function PaymentHistoryModal({
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-8 py-6">
+        <div className="flex-1 overflow-y-auto px-5 md:px-8 py-5 md:py-6">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-16">
               <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
@@ -153,42 +153,59 @@ export default function PaymentHistoryModal({
                   key={payment.id}
                   className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-all duration-200"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-bold text-slate-900">
-                          {payment.itemName}
-                        </h3>
-                        {getStatusBadge(payment.status)}
-                      </div>
-                      {payment.itemDescription && (
-                        <p className="text-sm text-slate-600 mb-3">
-                          {payment.itemDescription}
-                        </p>
-                      )}
-                      <div className="flex items-center gap-2 text-sm text-slate-500">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        <span>{payment.confirmedAt || ""}</span>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-extrabold text-blue-900">
-                        ${formatAmount(payment.amount, payment.token.decimals)}
-                      </div>
-                      <div className="text-xs text-slate-500 mt-1">
-                        {payment.token.symbol}
+                  <div className="flex items-start gap-4 mb-4">
+                    {/* Product Image */}
+                    {payment.itemImage && (
+                      <img
+                        src={payment.itemImage}
+                        alt={payment.itemName || "Product"}
+                        className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl flex-shrink-0 shadow-lg"
+                      />
+                    )}
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2 flex-wrap">
+                            <h3 className="text-lg font-bold text-slate-900">
+                              {payment.itemName}
+                            </h3>
+                            {getStatusBadge(payment.status)}
+                          </div>
+                          {payment.itemDescription && (
+                            <p className="text-sm text-slate-600 mb-3">
+                              {payment.itemDescription}
+                            </p>
+                          )}
+                          <div className="flex items-center gap-2 text-sm text-slate-500">
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                              />
+                            </svg>
+                            <span>{payment.confirmedAt || ""}</span>
+                          </div>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-xl md:text-2xl font-extrabold text-blue-900">
+                            $
+                            {formatAmount(
+                              payment.amount,
+                              payment.token.decimals
+                            )}
+                          </div>
+                          <div className="text-xs text-slate-500 mt-1">
+                            {payment.token.symbol}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

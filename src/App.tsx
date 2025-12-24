@@ -3,6 +3,10 @@ import PayWithVolrButton from "./components/PayWithVolrButton";
 import LoginScreen from "./components/LoginScreen";
 import PaymentHistoryModal from "./components/PaymentHistoryModal";
 import { useVolrModal, useVolr, useVolrPay, useI18n } from "@volr/react-ui";
+import whiteKeyringImg from "./assets/volr-keyring-white-1.jpeg";
+import blackKeyringImg from "./assets/volr-keyring-black-1.jpeg";
+import whiteKeyringZoomImg from "./assets/volr-keyring-white-zoom.jpeg";
+import blackKeyringZoomImg from "./assets/volr-keyring-black-zoom.jpeg";
 
 interface Product {
   id: number;
@@ -11,6 +15,8 @@ interface Product {
   colorHex: string;
   price: number;
   description: string;
+  image: string;
+  zoomImage: string;
 }
 
 const products: Product[] = [
@@ -20,7 +26,9 @@ const products: Product[] = [
     color: "White",
     colorHex: "#FFFFFF",
     price: 1,
-    description: "Classic white finish",
+    description: "Minimalist elegance in every detail",
+    image: whiteKeyringImg,
+    zoomImage: whiteKeyringZoomImg,
   },
   {
     id: 2,
@@ -28,7 +36,9 @@ const products: Product[] = [
     color: "Black",
     colorHex: "#000000",
     price: 1,
-    description: "Classic black finish",
+    description: "Bold statement, timeless style",
+    image: blackKeyringImg,
+    zoomImage: blackKeyringZoomImg,
   },
 ];
 
@@ -80,6 +90,7 @@ function App() {
         item: {
           name: selectedProduct.name,
           description: selectedProduct.description,
+          image: selectedProduct.zoomImage,
         },
         metadata: {
           item_name: selectedProduct.name,
@@ -126,10 +137,21 @@ function App() {
           <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-500/10 rounded-full blur-[120px]" />
         </div>
 
-        {/* Top Navigation Bar */}
-        <div className="relative z-20 border-b border-white/5">
-          <div className="max-w-4xl mx-auto px-6 py-4">
-            <div className="flex justify-end items-center gap-2">
+        {/* Hero Section */}
+        <div className="relative z-10 pt-12 md:pt-20 pb-6 px-4 md:px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-special-gothic text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 tracking-tight">
+              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+                Volr Shop
+              </span>
+            </h1>
+
+            <p className="text-base sm:text-lg md:text-xl text-blue-100/80 tracking-wide mb-6 md:mb-12">
+              Shop with Cryptocurrency
+            </p>
+
+            {/* Navigation Buttons - Below Title */}
+            <div className="flex justify-center items-center gap-2 flex-wrap">
               <button
                 onClick={handleMyAccount}
                 className="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2"
@@ -192,77 +214,43 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Hero Section */}
-        <div className="relative z-10 py-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-special-gothic text-6xl md:text-7xl font-bold mb-4 tracking-tight">
-              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-                Volr Shop
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-blue-100/80 tracking-wide">
-              Shop with Cryptocurrency
-            </p>
-          </div>
-        </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 py-16 pb-24">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl text-slate-900 mb-3 font-bold tracking-tight">
+      <main className="flex-1 py-8 md:py-16 pb-12 md:pb-24">
+        <div className="max-w-4xl mx-auto px-4 md:px-6">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-4xl text-slate-900 mb-2 md:mb-3 font-bold tracking-tight">
               Keyring Collection
             </h2>
-            <p className="text-lg text-slate-500 font-normal tracking-wide">
+            <p className="text-base md:text-lg text-slate-500 font-normal tracking-wide">
               Choose your style
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {products.map((product) => (
               <div
                 key={product.id}
-                className="bg-white rounded-3xl overflow-hidden shadow-product transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] border border-slate-200 relative hover:-translate-y-3 hover:shadow-product-hover hover:border-blue-500"
+                className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-product transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] border border-slate-200 relative hover:-translate-y-3 hover:shadow-product-hover hover:border-blue-500"
               >
-                <div className="absolute top-6 right-6 bg-blue-900 text-white py-1.5 px-3.5 rounded-[1.25rem] text-xs font-semibold tracking-wider uppercase z-10 shadow-md">
+                <div className="absolute top-4 right-4 md:top-6 md:right-6 bg-blue-900 text-white py-1 px-2.5 md:py-1.5 md:px-3.5 rounded-[1.25rem] text-xs font-semibold tracking-wider uppercase z-10 shadow-md">
                   New
                 </div>
-                <div
-                  className="py-16 px-8 flex items-center justify-center relative min-h-[17.5rem] border-b border-slate-200"
-                  style={{
-                    background: `linear-gradient(135deg, ${product.colorHex}22 0%, ${product.colorHex}11 100%)`,
-                  }}
-                >
-                  <div
-                    className="w-[8.75rem] h-[8.75rem] rounded-full shadow-keyring relative transition-transform duration-[400ms] ease-out group-hover:scale-110 group-hover:rotate-[5deg]"
-                    style={{
-                      background: product.colorHex,
-                      border:
-                        product.color === "White"
-                          ? "2px solid #e5e7eb"
-                          : "none",
-                    }}
-                  >
-                    <div
-                      className="absolute top-[15%] left-[25%] w-[30%] h-[40%] rounded-full blur-lg"
-                      style={{
-                        background:
-                          "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4) 0%, transparent 70%)",
-                        transform: "rotate(-45deg)",
-                      }}
-                    />
-                  </div>
+                <div className="py-6 px-4 md:py-12 md:px-8 flex items-center justify-center relative bg-slate-50">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-auto max-h-[16rem] md:max-h-[24rem] object-contain rounded-xl md:rounded-2xl shadow-lg"
+                  />
                 </div>
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-2xl text-slate-900 font-bold tracking-tight">
+                <div className="p-5 md:p-8">
+                  <div className="flex items-center justify-between mb-2 md:mb-3">
+                    <h3 className="text-xl md:text-2xl text-slate-900 font-bold tracking-tight">
                       {product.name}
                     </h3>
                     <span
-                      className="w-6 h-6 rounded-full shadow-md flex-shrink-0"
+                      className="w-5 h-5 md:w-6 md:h-6 rounded-full shadow-md flex-shrink-0"
                       style={{
                         backgroundColor: product.colorHex,
                         border:
@@ -272,20 +260,20 @@ function App() {
                       }}
                     ></span>
                   </div>
-                  <p className="text-slate-500 mb-7 text-[0.9375rem] leading-relaxed">
+                  <p className="text-slate-500 mb-5 md:mb-7 text-sm md:text-[0.9375rem] leading-relaxed">
                     {product.description}
                   </p>
-                  <div className="flex items-end justify-between gap-4 flex-col md:flex-row">
-                    <div className="flex flex-col gap-1">
+                  <div className="flex items-end justify-between gap-3 md:gap-4 flex-col sm:flex-row">
+                    <div className="flex flex-col gap-1 w-full sm:w-auto">
                       <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
                         Price
                       </span>
-                      <span className="text-[1.75rem] text-blue-900 font-extrabold tracking-tight">
+                      <span className="text-2xl md:text-[1.75rem] text-blue-900 font-extrabold tracking-tight">
                         ${product.price}.00 USD
                       </span>
                     </div>
                     <button
-                      className="bg-gradient-to-br from-blue-900 to-blue-800 text-white border-0 py-3.5 px-7 text-[0.9375rem] font-semibold rounded-xl cursor-pointer transition-all duration-300 flex items-center gap-2 tracking-wide shadow-md whitespace-nowrap hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(30,58,138,0.3)] hover:from-blue-800 hover:to-blue-500 active:translate-y-0 w-full md:w-auto justify-center"
+                      className="bg-gradient-to-br from-blue-900 to-blue-800 text-white border-0 py-3 md:py-3.5 px-6 md:px-7 text-sm md:text-[0.9375rem] font-semibold rounded-xl cursor-pointer transition-all duration-300 flex items-center gap-2 tracking-wide shadow-md whitespace-nowrap hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(30,58,138,0.3)] hover:from-blue-800 hover:to-blue-500 active:translate-y-0 w-full sm:w-auto justify-center"
                       onClick={() => handleBuyClick(product)}
                     >
                       <span>Add to Cart</span>
@@ -321,70 +309,44 @@ function App() {
           onClick={handleCloseModal}
         >
           <div
-            className="bg-white rounded-[2rem] max-w-[35rem] w-full relative animate-slide-up shadow-modal border border-slate-200"
+            className="bg-white rounded-2xl md:rounded-[2rem] max-w-[35rem] w-full relative animate-slide-up shadow-modal border border-slate-200 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
-              className="absolute top-6 right-6 bg-slate-100 border-0 text-2xl text-slate-600 cursor-pointer w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200 z-10 hover:bg-slate-200 hover:text-slate-900 hover:rotate-90"
+              className="absolute top-4 right-4 md:top-6 md:right-6 bg-slate-100 border-0 text-2xl text-slate-600 cursor-pointer w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200 z-10 hover:bg-slate-200 hover:text-slate-900 hover:rotate-90"
               onClick={handleCloseModal}
             >
               ×
             </button>
 
-            <div className="pt-12 px-10 pb-10">
-              <div className="mb-8 pr-8">
-                <h2 className="text-3xl text-slate-900 mb-2 font-bold tracking-tight">
+            <div className="pt-12 px-5 md:px-10 pb-6 md:pb-10">
+              <div className="mb-6 md:mb-8 pr-8 md:pr-8">
+                <h2 className="text-2xl md:text-3xl text-slate-900 mb-2 font-bold tracking-tight">
                   Checkout
                 </h2>
-                <p className="text-[0.9375rem] text-slate-500 font-normal">
+                <p className="text-sm md:text-[0.9375rem] text-slate-500 font-normal">
                   Pay securely with crypto
                 </p>
               </div>
 
-              <div className="bg-slate-50 rounded-[1.25rem] p-8 mb-8 border border-slate-200">
-                <div className="flex items-center gap-5 mb-8 pb-8 border-b border-slate-200">
-                  <div
-                    className="w-16 h-16 rounded-full flex-shrink-0 shadow-keyring"
-                    style={{
-                      background: selectedProduct.colorHex,
-                      border:
-                        selectedProduct.color === "White"
-                          ? "2px solid #e5e7eb"
-                          : "none",
-                    }}
+              <div className="bg-slate-50 rounded-xl md:rounded-[1.25rem] p-5 md:p-8 mb-6 md:mb-8 border border-slate-200">
+                <div className="flex items-start md:items-center gap-3 md:gap-5 flex-col sm:flex-row">
+                  <img
+                    src={selectedProduct.zoomImage}
+                    alt={selectedProduct.name}
+                    className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg md:rounded-xl flex-shrink-0 shadow-lg"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-slate-900 text-lg mb-1 tracking-tight">
+                    <p className="font-bold text-slate-900 text-base md:text-lg mb-1 tracking-tight">
                       {selectedProduct.name}
                     </p>
-                    <p className="text-slate-500 text-sm">
+                    <p className="text-slate-500 text-xs md:text-sm">
                       {selectedProduct.description}
                     </p>
                   </div>
-                  <p className="text-2xl font-extrabold text-blue-900 flex-shrink-0 tracking-tight">
-                    ${selectedProduct.price}.00
+                  <p className="text-xl md:text-2xl font-extrabold text-blue-900 flex-shrink-0 tracking-tight">
+                    ${selectedProduct.price}.00 USD
                   </p>
-                </div>
-
-                <div className="flex flex-col gap-3.5">
-                  <div className="flex justify-between items-center text-slate-600 text-[0.9375rem]">
-                    <span>Subtotal</span>
-                    <span>${selectedProduct.price}.00</span>
-                  </div>
-                  <div className="flex justify-between items-center text-slate-600 text-[0.9375rem]">
-                    <span>Shipping</span>
-                    <span className="bg-emerald-500 text-white py-1 px-2.5 rounded-md text-xs font-semibold uppercase tracking-wider">
-                      Free
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center pt-4 mt-2 border-t-2 border-slate-200">
-                    <span className="text-base font-bold text-slate-900 tracking-tight">
-                      Total Amount
-                    </span>
-                    <span className="text-[1.75rem] font-extrabold text-blue-900 tracking-tight">
-                      ${selectedProduct.price}.00 USD
-                    </span>
-                  </div>
                 </div>
               </div>
 
@@ -392,54 +354,6 @@ function App() {
                 onClick={handlePayment}
                 isLoading={isProcessing}
               />
-
-              <div className="flex justify-center gap-6 pt-4 flex-col md:flex-row">
-                <div className="flex items-center gap-2 text-slate-500 text-[0.8125rem]">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-emerald-500"
-                  >
-                    <path
-                      d="M8 1L3 3V7.5C3 10.5 5.5 13.5 8 14.5C10.5 13.5 13 10.5 13 7.5V3L8 1Z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>Secure Payment</span>
-                </div>
-                <div className="flex items-center gap-2 text-slate-500 text-[0.8125rem]">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-emerald-500"
-                  >
-                    <path
-                      d="M8 15C11.866 15 15 11.866 15 8C15 4.134 11.866 1 8 1C4.134 1 1 4.134 1 8C1 11.866 4.134 15 8 15Z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M10.5 6L7 10L5 8"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>Instant Confirmation</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -453,9 +367,9 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-slate-950 text-white mt-auto border-t border-slate-800">
-        <div className="max-w-4xl mx-auto px-6 py-6">
-          <div className="text-center text-sm">
-            <p className="font-semibold text-slate-300">© 2026 VOLR</p>
+        <div className="max-w-4xl mx-auto px-4 md:px-6 py-5 md:py-6">
+          <div className="text-center text-xs md:text-sm">
+            <p className="font-semibold text-slate-300">© 2026 Volr Shop</p>
             <p className="text-slate-500 text-xs mt-1">CES 2026 Demo</p>
           </div>
         </div>
