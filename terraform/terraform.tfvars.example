@@ -1,0 +1,14 @@
+# Copy this file to terraform.tfvars and fill in your actual values
+
+aws_region = "us-east-1"
+domain_name = "ces2026.volr.io"
+root_domain = "volr.io"
+
+# Get your ACM certificate ARN from AWS Console or CLI:
+# aws acm list-certificates --region us-east-1
+acm_certificate_arn = "arn:aws:acm:us-east-1:YOUR_ACCOUNT_ID:certificate/YOUR_CERT_ID"
+
+# Get your Route53 hosted zone ID:
+# aws route53 list-hosted-zones
+route53_zone_id = "YOUR_ZONE_ID"
+
