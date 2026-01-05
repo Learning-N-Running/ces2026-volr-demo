@@ -43,6 +43,25 @@ export default function PaymentHistoryModal({
     return value.toFixed(2);
   };
 
+  const formatLATime = (dateString: string | null | undefined) => {
+    if (!dateString) return "";
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: "America/Los_Angeles",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }).format(date);
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      return dateString;
+    }
+  };
+
   const getStatusBadge = (status: string) => {
     const statusColors = {
       confirmed: "bg-emerald-100 text-emerald-700 border-emerald-200",
@@ -191,7 +210,7 @@ export default function PaymentHistoryModal({
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                               />
                             </svg>
-                            <span>{payment.confirmedAt || ""}</span>
+                            <span>{formatLATime(payment.confirmedAt)}</span>
                           </div>
                         </div>
                         <div className="text-right flex-shrink-0">

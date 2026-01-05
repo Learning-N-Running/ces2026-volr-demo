@@ -55,7 +55,7 @@ export default function PayWithVolrButton({
               strokeLinejoin="round"
             />
           </svg>
-          <span>Pay with Volr</span>
+          <span>Pay with Crypto</span>
         </>
       )}
     </button>
